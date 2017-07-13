@@ -5,17 +5,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.src.service.DbConnection;
 import com.src.service.DbOperations;
 
 public class DbOpearationsImpl implements DbOperations {
-
+	private DbConnection DbConnection;
+	
+	public void setaner(DbConnection dbConnection){
+		this.DbConnection=dbConnection;
+	}
+	
 	@Override
 	public void createTable() {
-		Connection con = new DbConnectionImpl().getConnection();
+			Connection con = DbConnection.getConnection();
 		try {
 			Statement stat = con.createStatement();
-			String sql = "create table Suthanth(id int, name varchar(20))";
-			stat.execute(sql);
+			try{
+				String sql = "create table Suthanth(id int, name varchar(20))";
+				stat.execute(sql);
+			}
+			catch(Exception e){
+				String sql = "Drop table Suthanth";
+				stat.execute(sql);
+			    sql = "create table Suthanth(id int, name varchar(20))";
+				stat.execute(sql);
+			}
+			
 			System.out.println("Table created successfully");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -31,7 +46,7 @@ public class DbOpearationsImpl implements DbOperations {
 
 	@Override
 	public void insertValues() {
-		Connection con = new DbConnectionImpl().getConnection();
+		Connection con = DbConnection.getConnection();
 		try {
 			Statement stat = con.createStatement();
 			String sql = "insert into Suthanth values(1,'suthanth')";
@@ -52,7 +67,7 @@ public class DbOpearationsImpl implements DbOperations {
 
 	@Override
 	public void showTable() {
-		Connection con = new DbConnectionImpl().getConnection();
+		Connection con = DbConnection.getConnection();
 		try {
 			Statement stat = con.createStatement();
 			String sql = "select * from Suthanth";
