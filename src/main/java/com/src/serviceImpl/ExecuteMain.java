@@ -14,8 +14,8 @@ public class ExecuteMain {
 	public static void main(String args[]){
 		//DbOpearationsImpl exc = new DbOpearationsImpl();
 		DbOperations dbOperation = (DbOperations)applicationContext.getBean("DbOperations");
-		DbConnection dbConnection = (DbConnection)applicationContext.getBean("DbConnection");
-		dbOperation.setaner(dbConnection);
+		//DbConnection dbConnection = (DbConnection)applicationContext.getBean("DbConnection");
+		//dbOperation.setaner(dbConnection);
 		dbOperation.createTable();
 		dbOperation.insertValues();
 		dbOperation.showTable();

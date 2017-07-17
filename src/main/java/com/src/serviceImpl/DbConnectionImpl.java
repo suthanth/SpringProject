@@ -3,8 +3,10 @@ package com.src.serviceImpl;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import com.src.service.DbConnection;
+import org.springframework.stereotype.Component;
 
+import com.src.service.DbConnection;
+@Component("DbConnection")
 public class DbConnectionImpl implements DbConnection{
 
 	@Override

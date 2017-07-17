@@ -5,19 +5,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.src.service.DbConnection;
 import com.src.service.DbOperations;
 
+@Component("DbOpearation")
 public class DbOpearationsImpl implements DbOperations {
-	private DbConnection DbConnection;
-	
-	public void setaner(DbConnection dbConnection){
-		this.DbConnection=dbConnection;
+	/*public DbOpearationsImpl(com.src.service.DbConnection dbConnection) {
+		
+		this.DbConnection = dbConnection;
+	}*/
+
+	/*public DbConnection getDbConnection() {
+		return dbConnection;
 	}
+
+	public void setDbConnection(DbConnection dbConnection) {
+		this.dbConnection = dbConnection;
+	}*/
+	@Autowired
+	private DbConnection dbConnection;
+	
+	
+	
+	/*public void setaner(DbConnection dbConnection){
+		this.dbConnection=dbConnection;
+	}*/
+	
 	
 	@Override
 	public void createTable() {
-			Connection con = DbConnection.getConnection();
+			Connection con = dbConnection.getConnection();
+			//Connection con = getDbConnection();
 		try {
 			Statement stat = con.createStatement();
 			try{
@@ -46,7 +67,7 @@ public class DbOpearationsImpl implements DbOperations {
 
 	@Override
 	public void insertValues() {
-		Connection con = DbConnection.getConnection();
+		Connection con = dbConnection.getConnection();
 		try {
 			Statement stat = con.createStatement();
 			String sql = "insert into Suthanth values(1,'suthanth')";
@@ -67,7 +88,7 @@ public class DbOpearationsImpl implements DbOperations {
 
 	@Override
 	public void showTable() {
-		Connection con = DbConnection.getConnection();
+		Connection con = dbConnection.getConnection();
 		try {
 			Statement stat = con.createStatement();
 			String sql = "select * from Suthanth";
@@ -86,5 +107,4 @@ public class DbOpearationsImpl implements DbOperations {
 			}
 		}
 	}
-
 }
